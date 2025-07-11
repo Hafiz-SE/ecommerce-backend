@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS order_items (
     id BIGSERIAL PRIMARY KEY,
     order_id BIGINT NOT NULL,
     product_id BIGINT NOT NULL,
+    price_at_purchase_time NUMERIC(19, 2) NOT NULL,
 
     created_at TIMESTAMP,
     modified_at TIMESTAMP,

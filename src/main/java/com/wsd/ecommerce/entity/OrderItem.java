@@ -1,8 +1,11 @@
 package com.wsd.ecommerce.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.math.BigDecimal;
 
 @Table(
         name = "order_items",
@@ -31,4 +34,8 @@ public class OrderItem extends Audit<String> {
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @NotNull(message = "price cannot be null")
+    @Column(nullable = false)
+    private BigDecimal priceAtPurchaseTime;
 }
