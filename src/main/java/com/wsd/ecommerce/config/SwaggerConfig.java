@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-import static com.wsd.ecommerce.constant.SwaggerConstants.*;
+import static com.wsd.ecommerce.constant.SwaggerConstant.*;
 
 @Configuration
 public class SwaggerConfig {
