@@ -1,6 +1,7 @@
 package com.wsd.ecommerce.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -12,6 +13,12 @@ import java.math.BigDecimal;
         indexes = {
                 @Index(name = "idx_order_id", columnList = "order_id"),
                 @Index(name = "idx_product_id", columnList = "product_id")
+        },
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uc_user_product",
+                        columnNames = {"order_id", "product_id"}
+                )
         }
 )
 @Entity
@@ -34,6 +41,9 @@ public class OrderItem extends Audit<String> {
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    @Min(value = 1)
+    private int quantity;
 
     @NotNull(message = "price cannot be null")
     @Column(nullable = false)
