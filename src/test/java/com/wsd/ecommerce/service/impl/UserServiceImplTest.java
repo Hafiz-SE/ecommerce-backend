@@ -7,10 +7,8 @@ import com.wsd.ecommerce.dto.request.RegistrationRequest;
 import com.wsd.ecommerce.dto.response.LoginResponse;
 import com.wsd.ecommerce.entity.User;
 import com.wsd.ecommerce.exception.ApplicationException;
-import com.wsd.ecommerce.exception.BadCredentialException;
 import com.wsd.ecommerce.repository.UserRepository;
 import com.wsd.ecommerce.security.jwt.JwtTokenProvider;
-import com.wsd.ecommerce.service.UserService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +20,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,17 +41,24 @@ class UserServiceImplTest {
     @Mock
     private JwtTokenProvider tokenProvider;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @InjectMocks
-    private UserService userService;
+    private UserServiceImpl userService;
+
 
     @Test
     void shouldRegisterCustomerUserSuccessfully() {
         RegistrationRequest registrationRequest = RegistrationRequest.builder()
-                .email("test@gmail.com").name("abc").password("abcd@1234").build();
+                .email("john@example.com")
+                .name("John Doe")
+                .password("password123")
+                .build();
 
-        User user = getSampleUser();
-        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
-        when(userRepository.save(any(User.class))).thenReturn(user);
+        when(userRepository.findByEmail(registrationRequest.email())).thenReturn(Optional.empty());
+        when(passwordEncoder.encode(registrationRequest.password())).thenReturn("encodedPassword");
+        when(userRepository.save(any(User.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         assertThatCode(() -> userService.register(registrationRequest)).doesNotThrowAnyException();
         verify(userRepository).save(any(User.class));
@@ -60,23 +66,17 @@ class UserServiceImplTest {
 
     @Test
     void shouldNotRegisterIfEmailAlreadyExists() {
-        User user = getSampleUser();
         RegistrationRequest registrationRequest = RegistrationRequest.builder()
-                .email("test@gmail.com").name("abc").password("abcd@1234").build();
-
-        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
-
-        assertThatThrownBy(() -> userService.register(registrationRequest)).isInstanceOf(ApplicationException.class);
-    }
-
-    private User getSampleUser() {
-        return User.builder()
-                .id(1L)
-                .name("John Doe")
                 .email("john@example.com")
-                .password("password123") // in actual usage this should be hashed
-                .userType(UserType.CUSTOMER)
+                .name("John Doe")
+                .password("password123")
                 .build();
+
+        when(userRepository.findByEmail(registrationRequest.email())).thenReturn(Optional.of(getSampleUser()));
+
+        assertThatThrownBy(() -> userService.register(registrationRequest))
+                .isInstanceOf(ApplicationException.class)
+                .hasMessageContaining("Email already registered");
     }
 
     @Test
@@ -84,12 +84,13 @@ class UserServiceImplTest {
         User user = getSampleUser();
 
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(any(), any())).thenReturn(true);
         when(authenticationManager.authenticate(any())).thenReturn(mock(Authentication.class));
         when(tokenProvider.generateToken(any())).thenReturn("fake-jwt-token");
 
         LoginRequest request = LoginRequest.builder()
                 .email(user.getEmail())
-                .password(user.getPassword())
+                .password("password123")
                 .build();
 
         LoginResponse response = userService.login(request);
@@ -108,7 +109,8 @@ class UserServiceImplTest {
                 .build();
 
         assertThatThrownBy(() -> userService.login(request))
-                .isInstanceOf(ApplicationException.class);
+                .isInstanceOf(ApplicationException.class)
+                .hasMessageContaining("Username/Password incorrect");
     }
 
     @Test
@@ -116,15 +118,16 @@ class UserServiceImplTest {
         User user = getSampleUser();
 
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
-        when(authenticationManager.authenticate(any())).thenThrow(BadCredentialException.class);
+        when(passwordEncoder.matches(any(), any())).thenReturn(false);
 
         LoginRequest request = LoginRequest.builder()
-                .email("whereismypassword@example.com")
-                .password("iforgotmypassword, please help")
+                .email(user.getEmail())
+                .password("wrongpass")
                 .build();
 
         assertThatThrownBy(() -> userService.login(request))
-                .isInstanceOf(ApplicationException.class);
+                .isInstanceOf(ApplicationException.class)
+                .hasMessageContaining("Username/Password incorrect");
     }
 
     @Test
@@ -137,5 +140,15 @@ class UserServiceImplTest {
 
         assertThat(result.getContent()).hasSize(1);
         assertThat(result.getContent().get(0).getUserType()).isEqualTo(UserType.CUSTOMER);
+    }
+
+    private User getSampleUser() {
+        return User.builder()
+                .id(1L)
+                .name("John Doe")
+                .email("john@example.com")
+                .password("encodedPassword")
+                .userType(UserType.CUSTOMER)
+                .build();
     }
 }
