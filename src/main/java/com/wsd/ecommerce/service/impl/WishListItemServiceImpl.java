@@ -1,12 +1,13 @@
-package com.wsd.ecommerce.service;
+package com.wsd.ecommerce.service.impl;
 
 import com.wsd.ecommerce.dto.PaginationArgs;
 import com.wsd.ecommerce.entity.WishListItem;
+import com.wsd.ecommerce.service.WishListItemService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WishListServiceImpl implements WishListService {
+public class WishListItemServiceImpl implements WishListItemService {
     @Override
     public WishListItem add(Long productId) {
         return null;

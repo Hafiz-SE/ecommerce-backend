@@ -47,7 +47,6 @@ class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-
     @Test
     void shouldRegisterCustomerUserSuccessfully() {
         RegistrationRequest registrationRequest = RegistrationRequest.builder()
