@@ -10,6 +10,6 @@ public record UpdateProductRequest(@Length(min = 2, max = 50, message = "name is
                                    @Length(min = 1, max = 255, message = "description is too long or short")
                                    String description,
                                    @Positive BigDecimal price,
-                                   @NotNull(, message = "product id must be included")
+                                   @NotNull(message = "product id must be included")
                                    Long productId) {
 }
