@@ -7,14 +7,14 @@ import com.wsd.ecommerce.entity.WishListItem;
 import com.wsd.ecommerce.exception.ApplicationException;
 import com.wsd.ecommerce.repository.ProductRepository;
 import com.wsd.ecommerce.repository.WishListItemRepository;
-import com.wsd.ecommerce.security.custom.user.CustomUserDetails;
 import com.wsd.ecommerce.service.WishListItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import static com.wsd.ecommerce.utility.UserUtility.getCurrentUser;
 
 @Service
 @RequiredArgsConstructor
@@ -53,14 +53,5 @@ public class WishListItemServiceImpl implements WishListItemService {
 
         return wishListItemRepository.findByUser(user,
                 PageRequest.of(paginationArgs.getPageNo(), paginationArgs.getPageSize()));
-    }
-
-    private static User getCurrentUser() {
-        CustomUserDetails principal = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return User.builder()
-                .id(principal.getId())
-                .email(principal.getUsername())
-                .userType(principal.getUserType())
-                .build();
     }
 }

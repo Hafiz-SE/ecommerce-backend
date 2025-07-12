@@ -1,5 +1,6 @@
 package com.wsd.ecommerce.repository;
 
+import com.wsd.ecommerce.entity.Order;
 import com.wsd.ecommerce.entity.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
-    List<OrderItem> findByOrderId(Long orderId);
+    List<OrderItem> findByOrder(Order order);
 
     @Query(value = """
             SELECT COALESCE(SUM(oi.price_at_purchase_time * oi.quantity), 0)

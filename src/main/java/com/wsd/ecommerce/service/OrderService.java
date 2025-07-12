@@ -1,5 +1,6 @@
 package com.wsd.ecommerce.service;
 
+import com.wsd.ecommerce.dto.request.CreateOrderRequest;
 import com.wsd.ecommerce.entity.Order;
 import com.wsd.ecommerce.entity.OrderItem;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,7 @@ public interface OrderService {
 
     List<OrderItem> getOrderItemsOfAnOrder(Long orderId);
 
-    Order createOrder(List<Long> productIds);
+    Order createOrder(CreateOrderRequest createOrderRequest);
 
     LocalDate getMaxSaleDateBetween(LocalDate startDate, LocalDate endDate);
 
