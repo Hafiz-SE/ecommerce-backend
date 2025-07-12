@@ -2,6 +2,7 @@ package com.wsd.ecommerce.service.impl;
 
 import com.wsd.ecommerce.constant.UserType;
 import com.wsd.ecommerce.dto.DailySalesDto;
+import com.wsd.ecommerce.dto.PaginationArgs;
 import com.wsd.ecommerce.dto.request.CreateOrderRequest;
 import com.wsd.ecommerce.dto.request.OrderItemRequest;
 import com.wsd.ecommerce.entity.Order;
@@ -67,7 +68,7 @@ class OrderServiceImplTest {
         Page<Order> orders = new PageImpl<>(List.of(Order.builder().user(user).build()));
         when(orderRepository.findByUser(eq(user), any(PageRequest.class))).thenReturn(orders);
 
-        Page<Order> result = orderService.getOrdersOfCurrentUser(PageRequest.of(0, 10));
+        Page<Order> result = orderService.getOrdersOfCurrentUser(PaginationArgs.builder().pageSize(10).pageNo(0).build());
 
         assertThat(result.getContent()).hasSize(1);
         assertThat(result.getContent().get(0).getUser().getId()).isEqualTo(user.getId());
@@ -113,7 +114,7 @@ class OrderServiceImplTest {
     @Test
     void shouldThrowWhenProductNotFoundDuringOrderCreation() {
         mockSecurityContext(user);
-        
+
         CreateOrderRequest request = new CreateOrderRequest(Set.of(new OrderItemRequest(999L, 1)));
         when(productRepository.findAllById(Set.of(999L))).thenReturn(Collections.emptyList());
 

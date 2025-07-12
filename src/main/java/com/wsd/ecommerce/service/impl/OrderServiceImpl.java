@@ -1,6 +1,7 @@
 package com.wsd.ecommerce.service.impl;
 
 import com.wsd.ecommerce.dto.DailySalesDto;
+import com.wsd.ecommerce.dto.PaginationArgs;
 import com.wsd.ecommerce.dto.request.CreateOrderRequest;
 import com.wsd.ecommerce.dto.request.OrderItemRequest;
 import com.wsd.ecommerce.entity.Order;
@@ -15,7 +16,7 @@ import com.wsd.ecommerce.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,9 +38,9 @@ public class OrderServiceImpl implements OrderService {
     private final ProductRepository productRepository;
 
     @Override
-    public Page<Order> getOrdersOfCurrentUser(Pageable pageable) {
+    public Page<Order> getOrdersOfCurrentUser(PaginationArgs paginationArgs) {
         User user = getCurrentUser();
-        return orderRepository.findByUser(user, pageable);
+        return orderRepository.findByUser(user, PageRequest.of(paginationArgs.getPageNo(), paginationArgs.getPageSize()));
     }
 
     @Override
