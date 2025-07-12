@@ -5,6 +5,7 @@ import com.wsd.ecommerce.entity.Product;
 import com.wsd.ecommerce.entity.User;
 import com.wsd.ecommerce.entity.WishListItem;
 import com.wsd.ecommerce.exception.ApplicationException;
+import com.wsd.ecommerce.repository.ProductRepository;
 import com.wsd.ecommerce.repository.WishListItemRepository;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -34,6 +36,9 @@ class WishListItemServiceImplTest {
     @Mock
     private WishListItemRepository wishListItemRepository;
 
+    @Mock
+    private ProductRepository productRepository;
+
     @InjectMocks
     private WishListItemServiceImpl wishListItemService;
 
@@ -44,6 +49,7 @@ class WishListItemServiceImplTest {
         WishListItem savedItem = getSampleWishListItem(user, product);
 
         mockSecurityContext(user);
+        when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
         when(wishListItemRepository.save(any(WishListItem.class))).thenReturn(savedItem);
 
         WishListItem result = wishListItemService.add(product.getId());
@@ -54,16 +60,29 @@ class WishListItemServiceImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenAddingDuplicateWishListItem() {
+    void shouldThrowExceptionWhenProductNotFound() {
+        User user = getSampleUser();
+        mockSecurityContext(user);
+        when(productRepository.findById(999L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> wishListItemService.add(999L))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Product not found with id");
+    }
+
+    @Test
+    void shouldThrowApplicationExceptionWhenAddingDuplicateWishListItem() {
         User user = getSampleUser();
         Product product = getSampleProduct();
 
         mockSecurityContext(user);
+        when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
         when(wishListItemRepository.save(any(WishListItem.class)))
                 .thenThrow(new DataIntegrityViolationException("Unique constraint violation"));
 
         assertThatThrownBy(() -> wishListItemService.add(product.getId()))
-                .isInstanceOf(ApplicationException.class);
+                .isInstanceOf(ApplicationException.class)
+                .hasMessageContaining("already added this product");
     }
 
     @Test
