@@ -11,6 +11,7 @@ public class SecurityConstant {
     public static final String[] JWTDisabledAntMatchers = {
             "/auth/**",
             "/swagger-ui/**",
-            "/v3/api-docs*/**"
+            "/v3/api-docs*/**",
+            "/product/all"
     };
 }
