@@ -1,0 +1,10 @@
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (1, 2, 9, '2025-05-27 18:22:28', '2025-06-28 03:45:28');
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (2, 2, 5, '2025-06-20 14:27:28', '2025-05-18 03:27:28');
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (3, 2, 1, '2025-06-21 18:38:28', '2025-06-19 05:18:28');
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (4, 2, 6, '2025-05-24 10:02:28', '2025-06-21 19:05:28');
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (5, 2, 7, '2025-05-22 02:09:28', '2025-05-13 22:12:28');
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (6, 3, 6, '2025-07-09 00:24:28', '2025-06-12 09:25:28');
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (7, 3, 4, '2025-06-28 20:21:28', '2025-07-02 14:29:28');
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (8, 3, 2, '2025-05-16 03:32:28', '2025-06-21 14:20:28');
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (9, 3, 5, '2025-05-19 16:25:28', '2025-07-07 01:44:28');
+INSERT INTO wish_list_items (id, user_id, product_id, created_at, modified_at) VALUES (10, 3, 8, '2025-05-12 22:24:28', '2025-05-16 03:05:28');

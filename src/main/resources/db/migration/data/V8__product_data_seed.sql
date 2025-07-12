@@ -1,0 +1,10 @@
+INSERT INTO products (id, name, description, price, created_by, created_at, modified_at) VALUES (1, 'Product1', 'Description for product 1', 254.41,  1, '2025-06-19 15:31:27', '2025-07-08 03:20:14');
+INSERT INTO products (id, name, description, price,  created_by, created_at, modified_at) VALUES (2, 'Product2', 'Description for product 2', 177.15,  1, '2025-06-27 09:50:12', '2025-06-30 18:13:39');
+INSERT INTO products (id, name, description, price,  created_by, created_at, modified_at) VALUES (3, 'Product3', 'Description for product 3', 396.77,  1, '2025-06-18 11:42:51', '2025-07-06 00:58:16');
+INSERT INTO products (id, name, description, price,  created_by, created_at, modified_at) VALUES (4, 'Product4', 'Description for product 4', 148.3,  1, '2025-06-22 06:27:33', '2025-07-05 22:51:08');
+INSERT INTO products (id, name, description, price,  created_by, created_at, modified_at) VALUES (5, 'Product5', 'Description for product 5', 322.26,  1, '2025-07-02 20:11:50', '2025-07-01 00:55:40');
+INSERT INTO products (id, name, description, price,  created_by, created_at, modified_at) VALUES (6, 'Product6', 'Description for product 6', 402.6,  1, '2025-06-23 01:33:24', '2025-06-30 01:47:22');
+INSERT INTO products (id, name, description, price,  created_by, created_at, modified_at) VALUES (7, 'Product7', 'Description for product 7', 472.01,  1, '2025-06-21 19:04:39', '2025-07-03 07:08:58');
+INSERT INTO products (id, name, description, price,  created_by, created_at, modified_at) VALUES (8, 'Product8', 'Description for product 8', 118.96,  1, '2025-06-30 08:43:51', '2025-07-07 10:26:45');
+INSERT INTO products (id, name, description, price,  created_by, created_at, modified_at) VALUES (9, 'Product9', 'Description for product 9', 78.24,  1, '2025-06-25 14:37:09', '2025-07-05 05:13:17');
+INSERT INTO products (id, name, description, price,  created_by, created_at, modified_at) VALUES (10, 'Product10', 'Description for product 10', 173.83,  1, '2025-07-03 17:58:00', '2025-07-04 20:24:11');

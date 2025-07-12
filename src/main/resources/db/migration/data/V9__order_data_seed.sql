@@ -1,0 +1,12 @@
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (1, 2, 2488.57, '2025-06-09 10:00:17', '2025-06-13 04:47:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (2, 2, 2554.63, '2025-05-28 05:44:17', '2025-05-13 12:12:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (3, 2, 2099.8, '2025-06-28 12:52:17', '2025-05-26 11:48:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (4, 3, 2793.14, '2025-06-14 07:22:17', '2025-05-24 04:11:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (5, 3, 3480.45, '2025-06-03 21:33:17', '2025-05-16 20:17:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (6, 3, 2873.98, '2025-06-13 22:31:17', '2025-06-15 23:26:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (7, 3, 989.43, '2025-06-17 15:23:17', '2025-06-05 07:01:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (8, 4, 2071.79, '2025-05-31 09:59:17', '2025-06-12 16:13:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (9, 4, 1421.24, '2025-06-20 11:42:17', '2025-06-04 22:57:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (10, 4, 1710.87, '2025-06-25 05:28:17', '2025-07-01 06:17:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (11, 4, 1948.9, '2025-06-16 08:19:17', '2025-06-22 10:00:17');
+INSERT INTO orders (id, user_id, total_price, created_at, modified_at) VALUES (12, 4, 1897.11, '2025-06-23 14:11:17', '2025-06-18 13:49:17');

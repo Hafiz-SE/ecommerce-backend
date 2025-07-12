@@ -1,5 +1,6 @@
 package com.wsd.ecommerce.service.impl;
 
+import com.wsd.ecommerce.constant.SecurityConstant;
 import com.wsd.ecommerce.constant.UserType;
 import com.wsd.ecommerce.dto.PaginationArgs;
 import com.wsd.ecommerce.dto.request.LoginRequest;
@@ -64,6 +65,7 @@ public class UserServiceImpl implements UserService {
         return LoginResponse.builder()
                 .accessToken(jwt)
                 .tokenExpiryTimeInSecond(3600)
+                .tokenType(SecurityConstant.TOKEN_PREFIX)
                 .build();
     }
 
