@@ -12,6 +12,7 @@ public class SecurityConstant {
             "/auth/**",
             "/swagger-ui/**",
             "/v3/api-docs*/**",
+            "/actuator/**",
             "/product/all"
     };
 }
