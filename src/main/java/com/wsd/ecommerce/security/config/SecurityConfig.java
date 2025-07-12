@@ -86,7 +86,7 @@ public class SecurityConfig {
         methods.add("OPTIONS");
         methods.add("PATCH");
 
-        configuration.setAllowedOrigins(Collections.singletonList("*"));
+        configuration.setAllowedOrigins(Collections.singletonList("*")); // For now
         configuration.setAllowedMethods(methods);
         configuration.setAllowCredentials(false);
         configuration.setAllowedHeaders(all);
